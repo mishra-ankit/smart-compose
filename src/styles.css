@@ -1,0 +1,26 @@
+body {
+  font-family: sans-serif;
+}
+
+:root {
+  --input-width: 400px;
+}
+
+.autocomplete {
+  opacity: 0.6;
+  background: transparent;
+  position: absolute;
+  pointer-events: none;
+  width: var(--input-width);
+  resize: none;
+  border-color: transparent;
+}
+
+.vc_textarea {
+  min-height: 100px;
+  /* resize: none; */
+}
+
+#mainInput {
+  width: var(--input-width);
+}
