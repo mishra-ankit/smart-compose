@@ -5,7 +5,8 @@ import {
   isCursorAtEnd,
   pastePrediction,
   resetSuggestion,
-  hasPrediction
+  hasPrediction,
+  isCursorOnPredictedText
 } from "./utils";
 
 init(document.getElementById("mainInput"));
@@ -34,7 +35,7 @@ function onKeyUp(e, mainInput, autoComplete) {
 
   switch (e.code) {
     case "Space":
-      if (isCursorAtEnd(mainInput)) {
+      if (!hasPrediction(autoComplete, mainInput) && isCursorAtEnd(mainInput)) {
         const response = callMLDataSetAPI(e);
         if (response === "") {
           // predicted = "";
@@ -53,19 +54,17 @@ function onKeyUp(e, mainInput, autoComplete) {
       break;
     case "ArrowRight":
       if (hasPrediction(autoComplete, mainInput) && isCursorAtEnd(mainInput)) {
-        pastePrediction(autoComplete.value);
+        pastePrediction(getPredictedText(autoComplete, mainInput));
         resetSuggestion(autoComplete);
       }
       break;
     default:
-      if (autoComplete.value !== "" && hasPrediction(autoComplete, mainInput)) {
-        const predicted = getPredictedText(autoComplete, mainInput);
-        var first_character = predicted[0];
-        if (e.key !== first_character) {
+      if (hasPrediction(autoComplete, mainInput)) {
+        const first_character = autoComplete.value[mainInput.value.length - 1];
+        console.log({ first_character, key: e });
+        if (e.key !== "Shift" && e.key !== first_character) {
           resetSuggestion(autoComplete);
         }
-      } else {
-        resetSuggestion(autoComplete);
       }
   }
 }

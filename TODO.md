@@ -6,11 +6,12 @@ x- When you do a successive 'tab' is doesn't recompute new suggestion
 x- Get rid of jQuery
 x- Make it more lib like, create the other field on fly
 x- Bug - suggestion shown, click left arrow, now click right arrow suggestion is selected, even though it's not shown and user didn't click right arrow at beginning of text
+x- get rid of "predicted" global var
+x- keep typing and it merges them if it matches the prediction
 
 - Cleanup code
 
-  - get rid of "predicted" global var
-  - Should work with multiple fields
+  - Should work with multiple fields - Works with a visual bug, need another layout solution
 
 - Resize ? It makes them out of sync
   - Either disable resize, add add auto resize
@@ -24,7 +25,6 @@ x- Bug - suggestion shown, click left arrow, now click right arrow suggestion is
 Nice to have -
 
 - should suggest mid word too ?
-- keep typing and it merges them if it matches the prediction
 - Perf -
   - non blocking ?
   - Do search in background ?
