@@ -9,6 +9,8 @@ x- Bug - suggestion shown, click left arrow, now click right arrow suggestion is
 x- get rid of "predicted" global var
 x- keep typing and it merges them if it matches the prediction
 
+- tab shouldn't set focus on the "hidden" fields
+
 - Cleanup code
 
   - Should work with multiple fields - Works with a visual bug, need another layout solution

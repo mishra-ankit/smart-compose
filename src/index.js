@@ -5,8 +5,7 @@ import {
   isCursorAtEnd,
   pastePrediction,
   resetSuggestion,
-  hasPrediction,
-  isCursorOnPredictedText
+  hasPrediction
 } from "./utils";
 
 init(document.getElementById("mainInput"));
@@ -16,6 +15,9 @@ init(document.getElementById("secondInput"));
 function init(mainInput) {
   const autoComplete = document.createElement("textarea");
   autoComplete.classList.add("autocomplete");
+  autoComplete.setAttribute("disabled", "");
+  autoComplete.setAttribute("tabindex", "-1");
+
   mainInput.insertAdjacentElement("beforebegin", autoComplete);
 
   mainInput.addEventListener("keyup", (e) =>
