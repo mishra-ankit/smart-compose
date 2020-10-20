@@ -5,12 +5,18 @@ import {
   isCursorAtEnd,
   pastePrediction,
   resetSuggestion,
-  hasPrediction
+  hasPrediction,
+  resized
 } from "./utils";
 
 init(document.getElementById("mainInput"));
 
 init(document.getElementById("secondInput"));
+
+function isMatch(mainInput, autoComplete, key) {
+  const first_character = autoComplete.value[mainInput.value.length - 1];
+  return key === "Shift" || key === first_character;
+}
 
 function init(mainInput) {
   const autoComplete = document.createElement("textarea");
@@ -27,6 +33,8 @@ function init(mainInput) {
   mainInput.addEventListener("keydown", (e) =>
     onTabClickDown(e, mainInput, autoComplete)
   );
+
+  new ResizeObserver(() => resized(mainInput, autoComplete)).observe(mainInput);
 }
 
 function onKeyUp(e, mainInput, autoComplete) {
@@ -35,25 +43,24 @@ function onKeyUp(e, mainInput, autoComplete) {
     return;
   }
 
+  if (isMatch(mainInput, autoComplete, e.key)) {
+    return;
+  }
+
   switch (e.code) {
     case "Space":
       if (!hasPrediction(autoComplete, mainInput) && isCursorAtEnd(mainInput)) {
         const response = callMLDataSetAPI(e);
         if (response === "") {
-          // predicted = "";
           autoComplete.value = mainInput.value;
         } else {
           //TODO: ? Check if going to next line ? Then cut off prediction to keep it to same line
-          // predicted = response;
           autoComplete.value = mainInput.value + response;
         }
       } else {
-        // predicted = "";
+        // TODO: Only reset when it's not matching current value
         resetSuggestion(autoComplete);
       }
-      break;
-    case "Backspace":
-      resetSuggestion(autoComplete);
       break;
     case "ArrowRight":
       if (hasPrediction(autoComplete, mainInput) && isCursorAtEnd(mainInput)) {
@@ -62,18 +69,16 @@ function onKeyUp(e, mainInput, autoComplete) {
       }
       break;
     default:
-      if (hasPrediction(autoComplete, mainInput)) {
-        const first_character = autoComplete.value[mainInput.value.length - 1];
-        console.log({ first_character, key: e });
-        if (e.key !== "Shift" && e.key !== first_character) {
-          resetSuggestion(autoComplete);
-        }
-      }
+      resetSuggestion(autoComplete);
   }
 }
 
 export function onTabClickDown(e, mainInput, autoComplete) {
-  if (e.code === "Tab" && hasPrediction(autoComplete, mainInput)) {
+  if (
+    e.code === "Tab" &&
+    hasPrediction(autoComplete, mainInput) &&
+    isCursorAtEnd(mainInput)
+  ) {
     e.preventDefault();
     pastePrediction(getPredictedText(autoComplete, mainInput));
     resetSuggestion(autoComplete);

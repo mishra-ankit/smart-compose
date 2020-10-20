@@ -19,3 +19,8 @@ export function resetSuggestion(autoComplete) {
 
 export const hasPrediction = (autoComplete, mainInput) =>
   autoComplete.value.length > mainInput.value.length;
+
+export function resized(mainInput, autoComplete) {
+  autoComplete.style.height = mainInput.style.height;
+  autoComplete.style.width = mainInput.style.width;
+}
