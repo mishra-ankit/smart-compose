@@ -5,7 +5,6 @@ import {
   isCursorAtEnd,
   pastePrediction,
   resetSuggestion,
-  hasPrediction,
   resized
 } from "./utils";
 
@@ -49,21 +48,17 @@ function onKeyUp(e, mainInput, autoComplete) {
 
   switch (e.code) {
     case "Space":
-      if (!hasPrediction(autoComplete, mainInput) && isCursorAtEnd(mainInput)) {
+      if (isCursorAtEnd(mainInput)) {
         const response = callMLDataSetAPI(e);
-        if (response === "") {
-          autoComplete.value = mainInput.value;
-        } else {
-          //TODO: ? Check if going to next line ? Then cut off prediction to keep it to same line
-          autoComplete.value = mainInput.value + response;
-        }
+        //TODO: ? Check if going to next line ? Then cut off prediction to keep it to same line
+        autoComplete.value = mainInput.value + response;
       } else {
         // TODO: Only reset when it's not matching current value
         resetSuggestion(autoComplete);
       }
       break;
     case "ArrowRight":
-      if (hasPrediction(autoComplete, mainInput) && isCursorAtEnd(mainInput)) {
+      if (isCursorAtEnd(mainInput)) {
         pastePrediction(getPredictedText(autoComplete, mainInput));
         resetSuggestion(autoComplete);
       }
@@ -74,11 +69,7 @@ function onKeyUp(e, mainInput, autoComplete) {
 }
 
 export function onTabClickDown(e, mainInput, autoComplete) {
-  if (
-    e.code === "Tab" &&
-    hasPrediction(autoComplete, mainInput) &&
-    isCursorAtEnd(mainInput)
-  ) {
+  if (e.code === "Tab" && isCursorAtEnd(mainInput)) {
     e.preventDefault();
     pastePrediction(getPredictedText(autoComplete, mainInput));
     resetSuggestion(autoComplete);
