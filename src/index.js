@@ -47,6 +47,7 @@ function onKeyUp(e, mainInput, autoComplete) {
         }
       } else {
         // predicted = "";
+        resetSuggestion(autoComplete);
       }
       break;
     case "Backspace":
