@@ -1,10 +1,16 @@
 import "./styles.css";
 import { callMLDataSetAPI } from "./suggestion";
-import { isCursorAtEnd, pastePrediction } from "./utils";
-
-let predicted = "";
+import {
+  getPredictedText,
+  isCursorAtEnd,
+  pastePrediction,
+  resetSuggestion,
+  hasPrediction
+} from "./utils";
 
 init(document.getElementById("mainInput"));
+
+init(document.getElementById("secondInput"));
 
 function init(mainInput) {
   const autoComplete = document.createElement("textarea");
@@ -31,34 +37,31 @@ function onKeyUp(e, mainInput, autoComplete) {
       if (isCursorAtEnd(mainInput)) {
         const response = callMLDataSetAPI(e);
         if (response === "") {
-          predicted = "";
+          // predicted = "";
           autoComplete.value = mainInput.value;
         } else {
           //TODO: ? Check if going to next line ? Then cut off prediction to keep it to same line
-          predicted = response;
+          // predicted = response;
           autoComplete.value = mainInput.value + response;
         }
       } else {
-        predicted = "";
+        // predicted = "";
       }
       break;
     case "Backspace":
       resetSuggestion(autoComplete);
       break;
     case "ArrowRight":
-      if (predicted && isCursorAtEnd(mainInput)) {
-        pastePrediction(predicted);
+      if (hasPrediction(autoComplete, mainInput) && isCursorAtEnd(mainInput)) {
+        pastePrediction(autoComplete.value);
         resetSuggestion(autoComplete);
       }
       break;
     default:
-      if (autoComplete.value !== "" && predicted) {
-        var first_character = predicted.charAt(0);
-        if (e.key === first_character) {
-          var s1 = predicted;
-          var s2 = s1.substr(1);
-          predicted = s2;
-        } else {
+      if (autoComplete.value !== "" && hasPrediction(autoComplete, mainInput)) {
+        const predicted = getPredictedText(autoComplete, mainInput);
+        var first_character = predicted[0];
+        if (e.key !== first_character) {
           resetSuggestion(autoComplete);
         }
       } else {
@@ -67,15 +70,10 @@ function onKeyUp(e, mainInput, autoComplete) {
   }
 }
 
-export function resetSuggestion(autoComplete) {
-  autoComplete.value = "";
-  predicted = "";
-}
-
 export function onTabClickDown(e, mainInput, autoComplete) {
-  if (e.code === "Tab" && predicted) {
+  if (e.code === "Tab" && hasPrediction(autoComplete, mainInput)) {
     e.preventDefault();
-    pastePrediction(predicted);
+    pastePrediction(getPredictedText(autoComplete, mainInput));
     resetSuggestion(autoComplete);
   }
 }
