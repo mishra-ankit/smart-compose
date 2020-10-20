@@ -7,10 +7,7 @@ let predicted = "";
 init(document.getElementById("mainInput"));
 
 function init(mainInput) {
-  mainInput.classList.add("vc_textarea");
-
   const autoComplete = document.createElement("textarea");
-  autoComplete.classList.add("vc_textarea");
   autoComplete.classList.add("autocomplete");
   mainInput.insertAdjacentElement("beforebegin", autoComplete);
 
