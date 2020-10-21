@@ -1,7 +1,7 @@
 {
   "name": "smart-compose",
   "version": "1.0.0",
-  "description": "predictive,\nRecreate Gmail smart-compose feature with bare minimum",
+  "description": "",
   "main": "index.html",
   "scripts": {
     "start": "parcel index.html --open",
