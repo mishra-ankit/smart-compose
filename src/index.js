@@ -47,16 +47,6 @@ async function onKeyUp(e, mainInput, autoComplete) {
   }
 
   switch (e.code) {
-    case "Space":
-      if (isCursorAtEnd(mainInput)) {
-        const response = await callMLDataSetAPI(e);
-        //TODO: ? Check if going to next line ? Then cut off prediction to keep it to same line
-        autoComplete.value = mainInput.value + response;
-      } else {
-        // TODO: Only reset when it's not matching current value
-        resetSuggestion(autoComplete);
-      }
-      break;
     case "ArrowRight":
       if (isCursorAtEnd(mainInput)) {
         pastePrediction(getPredictedText(autoComplete, mainInput));
@@ -64,7 +54,17 @@ async function onKeyUp(e, mainInput, autoComplete) {
       }
       break;
     default:
-      resetSuggestion(autoComplete);
+      if (isCursorAtEnd(mainInput)) {
+        // TODO: If already waiting for response ?!
+        resetSuggestion(autoComplete);
+        callMLDataSetAPI(e).then((response) => {
+          //TODO: ? Check if going to next line ? Then cut off prediction to keep it to same line
+          autoComplete.value = mainInput.value + response;
+        });
+      } else {
+        // TODO: Only reset when it's not matching current value
+        resetSuggestion(autoComplete);
+      }
   }
 }
 
