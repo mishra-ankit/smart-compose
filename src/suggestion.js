@@ -21,7 +21,7 @@ export function callMLDataSetAPI(event) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve(example[randomText(example)]);
-    }, getRandomArbitrary(200, 1000))
+    }, getRandomArbitrary(200, 800))
   );
 }
 
