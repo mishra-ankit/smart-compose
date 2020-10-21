@@ -36,7 +36,7 @@ function init(mainInput) {
   new ResizeObserver(() => resized(mainInput, autoComplete)).observe(mainInput);
 }
 
-function onKeyUp(e, mainInput, autoComplete) {
+async function onKeyUp(e, mainInput, autoComplete) {
   if (mainInput.value === "") {
     autoComplete.value = "";
     return;
@@ -49,7 +49,7 @@ function onKeyUp(e, mainInput, autoComplete) {
   switch (e.code) {
     case "Space":
       if (isCursorAtEnd(mainInput)) {
-        const response = callMLDataSetAPI(e);
+        const response = await callMLDataSetAPI(e);
         //TODO: ? Check if going to next line ? Then cut off prediction to keep it to same line
         autoComplete.value = mainInput.value + response;
       } else {

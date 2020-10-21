@@ -18,7 +18,13 @@ function randomText(obj) {
 }
 
 export function callMLDataSetAPI(event) {
-  //call api and get response
-  // TODO: Make this async, to simulate API call.
-  return example[randomText(example)];
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(example[randomText(example)]);
+    }, getRandomArbitrary(200, 4000))
+  );
+}
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
 }

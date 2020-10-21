@@ -39,3 +39,10 @@ Ref -
 - https://www.kaggle.com/rtatman/english-word-frequency
 - https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words
 - https://github.com/first20hours/google-10000-english
+
+- http://dooly-ai.github.io/draft-js-typeahead/
+- https://ejmudi.github.io/react-autocomplete-hint/
+- https://www.draft-js-plugins.com/plugin/mention
+- https://github.com/nikgraf/awesome-draft-js
+
+- https://github.com/facebook/draft-js/issues/616#issuecomment-426047799
