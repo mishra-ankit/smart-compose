@@ -46,3 +46,15 @@ Ref -
 - https://github.com/nikgraf/awesome-draft-js
 
 - https://github.com/facebook/draft-js/issues/616#issuecomment-426047799
+- https://codepen.io/jh3y/pen/rpoxxL
+- http://jsfiddle.net/dandv/aFPA7/
+
+Markov chain -
+
+- https://shiffman.net/a2z/markov/
+- https://github.com/Edwin-Pratt/js-markov/blob/master/src/markov.js
+
+https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt
+
+const str = `<paste the above raw here>`
+const longerWords = str.split(/\r?\n/).filter(word => word.length > 3);

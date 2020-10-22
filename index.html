@@ -6,11 +6,29 @@
   </head>
 
   <body>
-    <textarea id="mainInput" placeholder="Write some text" autofocus></textarea>
+    <textarea
+      id="mainInput"
+      placeholder="Write some text, after typing space you get suggestins, click 'Tab' or 'Right arrow' to select suggestion"
+      autofocus
+    ></textarea>
 
-    <textarea id="secondInput" placeholder="Write some other text"></textarea>
+    <br />
+    <p>
+      Below field uses
+      <a
+        href="https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt"
+        >this</a
+      >
+      list.
+    </p>
+    <textarea
+      id="secondInput"
+      placeholder="'Tab' or 'Right arrow' to select suggestion"
+    ></textarea>
     <!-- <textarea id="autocomplete" type="text" class="vc_textarea"></textarea> -->
-
+    <div>
+      <select id="prediction" size="10"></select>
+    </div>
     <script src="src/index.js"></script>
   </body>
 </html>
