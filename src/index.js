@@ -108,7 +108,9 @@ function onInput(e) {
   ) {
     const result = words.filter(
       // Don't show word itself in prediction
-      (word) => word.length > lastWord.length && word.indexOf(lastWord) === 0
+      (word) =>
+        word.length > lastWord.length &&
+        word.indexOf(lastWord.toLocaleLowerCase()) === 0
     );
     if (result.length) {
       setPredictions(result, prediction);
