@@ -58,3 +58,13 @@ https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.t
 
 const str = `<paste the above raw here>`
 const longerWords = str.split(/\r?\n/).filter(word => word.length > 3);
+
+Test cases v2 -
+
+- undo, redo should work
+- tab or right arrow should insert suggestion
+  - Only when done at end of input aka not somewehre within the text
+  - when no suggestion arrow keys/tab should work normally
+  - when suggestion present, arrow/tab key should prevent default, should not move focus, or move cursor
+- Reset suggestion when moves somwehre else in text ?
+-
